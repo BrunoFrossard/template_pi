@@ -2,13 +2,14 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
+// Middleware para JSON
 app.use(express.json());
 
-// Rotas
-const routes = require('./src/routes/index');
-app.use('/api', routes);
+// Importar as rotas
+const routes = require('./routes/index');
+app.use('/', routes);
 
-// Inicializa o servidor
+// Iniciar o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
