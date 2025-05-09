@@ -1,10 +1,6 @@
 node_modules/
-<<<<<<< HEAD
 *-lock.json
 .env
 database.sqlite
-=======
 .env
-coverage/
-*-lock.json
->>>>>>> 919bcb3 (Remove repositório embutido template_pi e ajusta estrutura)
+.DS_Store
