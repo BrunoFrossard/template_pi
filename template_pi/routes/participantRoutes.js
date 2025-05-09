@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/userController');
 
-// Exemplo de rota para listar participantes
-router.get('/', (req, res) => {
-  res.send('Listar participantes');
-});
+router.get('/', userController.getAllUsers);
 
 module.exports = router;
