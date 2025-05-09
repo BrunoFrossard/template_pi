@@ -1,6 +1,0 @@
-node_modules/
-*-lock.json
-.env
-database.sqlite
-.env
-.DS_Store
