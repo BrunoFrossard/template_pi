@@ -9,7 +9,6 @@ O Sistema de Gerenciamento de Eventos é uma aplicação desenvolvida com foco n
 - Inscrição em eventos
 - Consulta de eventos e participantes
 
----
 
 ## Diagrama do Banco de Dados
 O diagrama ERD a seguir ilustra a estrutura do banco de dados, incluindo as tabelas `participants`, `events` e `subscriptions`:
@@ -20,7 +19,7 @@ O diagrama ERD a seguir ilustra a estrutura do banco de dados, incluindo as tabe
 - **events:** Armazena os eventos criados pelos participantes.
 - **subscriptions:** Armazena as inscrições dos participantes nos eventos.
 
----
+
 
 ## Modelo Relacional
 - Um participante pode criar vários eventos.
