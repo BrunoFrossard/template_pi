@@ -152,45 +152,8 @@ npm run init-db
 
 2. Acesse as rotas para verificar os dados no banco:
 
-- GET /api/participants - Lista todos os participantes. Ainda não tem nenhum participante.
+- GET /api/participants - Lista todos os participantes.
 
 
-## Configurar o Banco de Dados
-
-1. Instale o PostgreSQL
-
-Windows/macOS: Baixe indo no site postgresql.org/download.
-
-2. Crie o Banco de Dados
-Acesse o terminal do PostgreSQL (psql) e execute:
-
-sql
-CREATE DATABASE event_management;
-
-3. Configure o Projeto
-Crie um arquivo .env na raiz com:
-
-env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres       # Ou seu usuário
-DB_PASSWORD=sua_senha  # Senha do PostgreSQL
-DB_NAME=event_management
-
-4. Execute as Migrações
-No terminal do projeto:
-
-bash
-npm run migrate:up
-
-5. Verifique
-Conecte ao banco:
-
-bash
-psql -U postgres -d event_management
-Liste as tabelas:
-
-sql
-\dt
 
 

@@ -2,8 +2,21 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const db = require('./src/config/database');
-
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('./routes');
+const port = 3000;
 const app = express();
+
+
+app.use(cors());
+app.use(bodyParser.json());
+
+app.use('/api', routes);
+
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +40,7 @@ db.connect((err, client, release) => {
   const indexRoutes = require('./routes/index');
   app.use('/', indexRoutes);
 
+
   // Middleware para lidar com erros de rota não encontrada
   app.use((req, res, next) => {
     res.status(404).send('Página não encontrada');
@@ -42,5 +56,9 @@ db.connect((err, client, release) => {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
+
+    
+    
   });
+  
 });
