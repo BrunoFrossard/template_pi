@@ -1,8 +1,11 @@
 const db = require('../config/database');
 
-exports.getAllUsers = (callback) => {
+exports.listarParticipantes = async () => {
   const query = 'SELECT * FROM participants';
-  db.all(query, [], (err, rows) => {
-    callback(err, rows);
-  });
+  try {
+    const result = await db.query(query);
+    return result.rows;
+  } catch (err) {
+    throw new Error('Erro ao listar participantes');
+  }
 };

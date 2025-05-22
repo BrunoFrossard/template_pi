@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('../partials/head', { title: 'Todos os Eventos' }) %>
+</head>
+<body>
+  <%- include('../partials/navigation') %>
+
+  <main class="container">
+    <div class="events-header">
+      <h1>Próximos Eventos</h1>
+      <a href="/events/create" class="btn-primary">+ Novo Evento</a>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar eventos...">
+      <select>
+        <option>Categoria: Todas</option>
+        <option>Festa</option>
+        <option>Show</option>
+        <option>Festival</option>
+      </select>
+    </div>
+
+    <div class="event-list">
+      <% events.forEach(event => { %>
+        <article class="event-item">
+          <div class="event-date">
+            <span class="day"><%= new Date(event.event_date).getDate() %></span>
+            <span class="month"><%= new Date(event.event_date).toLocaleString('default', { month: 'short' }) %></span>
+          </div>
+          <div class="event-details">
+            <h2><a href="/events/<%= event.id %>"><%= event.title %></a></h2>
+            <p class="location">📍 Local: A definir</p>
+            <p class="description"><%= event.description %></p>
+            <div class="event-actions">
+              <a href="/events/<%= event.id %>/participants" class="btn-outline">
+                👥 Ver participantes (<%= event.participant_count || 0 %>)
+              </a>
+              <a href="/events/<%= event.id %>" class="btn-primary">Ver detalhes</a>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

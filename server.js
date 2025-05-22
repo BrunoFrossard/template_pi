@@ -2,63 +2,48 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const db = require('./src/config/database');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const routes = require('./routes');
-const port = 3000;
+const eventRoutes = require('./routes/eventRoutes');
+const userRoutes = require('./routes/userRoutes');
+
 const app = express();
+const port = process.env.PORT || 3000;
 
-
-app.use(cors());
-app.use(bodyParser.json());
-
-app.use('/api', routes);
-
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
-});
-
+// Configurações
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Testar a conexão ao banco de dados
-db.connect((err, client, release) => {
+// Conexão com Banco de Dados
+db.connect(async (err) => {
   if (err) {
-    console.error('Erro ao conectar ao banco de dados:', err);
+    console.error('❌ Erro no banco de dados:', err);
     process.exit(1);
   }
 
-  console.log('Conectado ao banco de dados PostgreSQL');
-  release(); // Liberar o cliente para evitar leaks
+  console.log('✅ Banco de dados conectado');
 
   // Rotas
-  const participantRoutes = require('./routes/participantRoutes');
-  app.use('/participants', participantRoutes);
+  app.use('/events', eventRoutes);
+  app.use('/participants', userRoutes);
 
-  const indexRoutes = require('./routes/index');
-  app.use('/', indexRoutes);
-
-
-  // Middleware para lidar com erros de rota não encontrada
-  app.use((req, res, next) => {
-    res.status(404).send('Página não encontrada');
+  // Rota Home (Página Inicial)
+  app.get('/', async (req, res) => {
+    try {
+      const events = await db.query('SELECT * FROM events ORDER BY event_date DESC LIMIT 3');
+      res.render('home', { 
+        title: 'PartyFinder - Encontre as melhores festas',
+        featuredEvents: events.rows 
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).render('error', { message: 'Erro ao carregar eventos' });
+    }
   });
 
-  // Middleware para lidar com erros internos do servidor
-  app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Erro no servidor');
+  // Inicia Servidor
+  app.listen(port, () => {
+    console.log(`🚀 Servidor rodando em http://localhost:${port}`);
   });
-
-  // Iniciar o servidor
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-
-    
-    
-  });
-  
 });

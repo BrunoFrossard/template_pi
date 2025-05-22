@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('partials/head', { title }) %>
+</head>
+<body>
+  <%- include('partials/navigation') %>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Encontre as melhores festas na sua cidade</h1>
+      <a href="/events/create" class="btn-primary">Criar meu evento</a>
+    </section>
+
+    <section class="featured-events">
+      <h2>Eventos em Destaque</h2>
+      <div class="event-grid">
+        <% featuredEvents.forEach(event => { %>
+          <div class="event-card">
+            <img src="/images/event-placeholder.jpg" alt="<%= event.title %>">
+            <div class="event-info">
+              <h3><%= event.title %></h3>
+              <p><%= event.description %></p>
+              <div class="event-meta">
+                <span>📅 <%= new Date(event.event_date).toLocaleDateString() %></span>
+                <a href="/events/<%= event.id %>" class="btn-secondary">Ver detalhes</a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+</body>
+</html>
