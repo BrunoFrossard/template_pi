@@ -4,13 +4,19 @@ const path = require('path');
 const db = require('./src/config/database');
 const eventRoutes = require('./routes/eventRoutes');
 const userRoutes = require('./routes/userRoutes');
+const tarefaRoutes = require('./routes/tarefaRoutes');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+
 // Configurações
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use('/tarefas', tarefaRoutes);
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -32,7 +38,7 @@ db.connect(async (err) => {
   app.get('/', async (req, res) => {
     try {
       const events = await db.query('SELECT * FROM events ORDER BY event_date DESC LIMIT 3');
-      res.render('home', { 
+      res.render('pages/page1', { 
         title: 'PartyFinder - Encontre as melhores festas',
         featuredEvents: events.rows 
       });

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('../components/header', { title: 'Novo Evento' }) %>
+</head>
+<body>
+  <%- include('../components/navigation') %>
+
+  <main class="container">
+    <h1>Criar Novo Evento</h1>
+    <form>
+      <input type="text" name="title" placeholder="Título do evento" required>
+      <input type="text" name="description" placeholder="Descrição" required>
+      <input type="date" name="event_date" required>
+      <button class="btn-primary" type="submit">Cadastrar Evento</button>
+    </form>
+  </main>
+
+  <%- include('../components/footer') %>
+  <script src="/js/events.js"></script>
+</body>
+</html>

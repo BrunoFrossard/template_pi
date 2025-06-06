@@ -1,19 +1,14 @@
 ### Listar todos os eventos (HTML)
 GET http://localhost:3000/events
 
-### Listar todos os eventos (JSON)
-GET http://localhost:3000/events
+
 Accept: application/json
 
 ### Criar um novo evento (FORM)
-POST http://localhost:3000/events
 Content-Type: application/x-www-form-urlencoded
 
 title=Evento+Teste&description=Descrição+do+evento&creator_id=1&status=Ativo&event_date=2025-06-01
 
-### Criar um novo evento (JSON)
-POST http://localhost:3000/events
-Content-Type: application/json
 
 {
   "title": "Evento de Teste",
@@ -23,9 +18,4 @@ Content-Type: application/json
   "event_date": "2025-06-01"
 }
 
-### Listar todos os participantes (HTML)
-GET http://localhost:3000/participants
-
-### Listar todos os participantes (JSON)
-GET http://localhost:3000/participants
-Accept: application/json
+GET: http://localhost:3000

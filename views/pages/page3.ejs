@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('../components/header', { title }) %>
+</head>
+<body>
+  <%- include('../components/navigation') %>
+
+  <main class="container">
+    <section class="tasks-header">
+      <h1>📋 Minhas Tarefas</h1>
+      <a href="/tarefas/create" class="btn-primary">+ Nova Tarefa</a>
+    </section>
+
+    <% if (tarefas.length === 0) { %>
+      <p class="no-tasks">Nenhuma tarefa cadastrada ainda.</p>
+    <% } else { %>
+      <div class="task-list">
+        <% tarefas.forEach(tarefa => { %>
+          <div class="task-card">
+            <div class="task-header">
+              <h2><%= tarefa.nome %></h2>
+              <span class="task-status <%= tarefa.status === 'concluída' ? 'done' : 'pending' %>">
+                <%= tarefa.status || 'pendente' %>
+              </span>
+            </div>
+            <p class="description"><%= tarefa.descricao %></p>
+            <div class="task-actions">
+              <a href="/tarefas/<%= tarefa.id %>/edit" class="btn-secondary">✏️ Editar</a>
+              <form action="/tarefas/<%= tarefa.id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button type="submit" class="btn-danger">🗑️ Excluir</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('../components/footer') %>
+</body>
+</html>
