@@ -122,12 +122,16 @@ body {
   background: white;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .nav-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
 }
 
 .nav-links {
@@ -141,10 +145,22 @@ body {
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s;
+  position: relative;
 }
 
-.nav-links a:hover {
-  color: var(--primary);
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: var(--primary);
+  left: 0;
+  bottom: -4px;
+  transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 .logo {
